@@ -1,0 +1,61 @@
+#1:Download and Install java-17
+
+cd /opt
+ yum install java-17 -y
+
+#2:Download and Install SonarQube 
+Step 1: Download sonaqube installer files archive To download latest version of visit SonarQube download page.
+
+cd /opt
+ wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.1.0.47736.zip
+
+Step 2:Unzip the archive setup to /opt directory
+
+ unzip sonarqube-9.1.0.47736.zip 
+
+#3:Configure SonarQube
+Step 1: Create a group as sonar
+groupadd sonar
+Step 2: Now add the user with directory access.
+
+useradd sonar
+passwd sonar
+
+Step 3: Give the ownership permission to sonar user and group.
+
+chown -R sonar:sonarsonarqube-9.1.0.47736.zip
+
+Step 5: Edit the sonar script file and set RUN_AS_USER
+
+vim /opt/sonarqube/bin/linux-x86-64/sonar.sh
+RUN_AS_USER=sonar
+
+#7:Start SonarQube
+Step 1: Now to start SonarQube we need to do following: Switch to sonar user
+
+sudo su sonar (or) su - sonar
+Step 2: Move to the script directory
+
+cd /opt/sonarqube/bin/linux-x86-64/
+Step 3: Run the script to start SonarQube
+
+./sonar.sh start (or) sh sonar.sh start
+
+Step 4: To check if sonaqube is running enter below command,
+
+./sonar.sh status (or) sh sonar.sh status
+
+
+Save and close the file. Now stop the sonarqube script earlier we started to run using as daemon. Start the Sonarqube daemon by running:
+sudo systemctl start sonar
+Enable the SonarQube service to automatically  at boot time System Startup.
+
+sudo systemctl enable sonar
+check if the sonarqube service is running,
+
+sudo systemctl status sonar
+
+#10:Access SonarQube
+To access the SonarQube using browser type server IP followed by port 9000.
+
+http://server_IP:9000 OR http://localhost:9000
